@@ -5,12 +5,30 @@ declare module "recoil" {
   };
 
   export type AtomObject<T> = {
-    key: T;
+    hoge: T;
   };
+
+  type AtomValue<T extends AtomObject<any>> = T extends AtomObject<infer U>
+    ? U
+    : any;
+
+  export type SetRecoilValue<T> = ((oldValue: T) => T) | T;
 
   export const atom: <T>(obj: AtomOptions<T>) => AtomObject<T>;
 
   export const useRecoilValue: <T extends AtomObject<any>>(
     atom: T,
-  ) => T extends AtomObject<infer U> ? U : never;
+  ) => AtomValue<T>;
+
+  export const useSetRecoilState: <T extends AtomObject<any>>(
+    atom: T,
+  ) => (newValue: SetRecoilValue<AtomValue<T>>) => AtomValue<T>;
+
+  export const useRecoilState: <T extends AtomObject<any>>(
+    atom: T,
+  ) => T extends AtomObject<infer U>
+    ? [U, (arg: SetRecoilValue<U>) => U]
+    : never;
+
+  export const RecoilRoot: React.FC;
 }

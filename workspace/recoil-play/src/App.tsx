@@ -42,12 +42,13 @@ const TodoList = () => {
   );
 };
 
+type hoge = (oldTodoList: Todo[]) => Todo[];
+
 const TodoItemCreator = () => {
   const [inputValue, setInputValue] = useState("");
   const setTodoList = useSetRecoilState(todoListState);
 
   const addItem = () => {
-    console.log("additem");
     setTodoList(oldTodoList => [
       ...oldTodoList,
       {
@@ -58,8 +59,8 @@ const TodoItemCreator = () => {
     ]);
   };
 
-  const onChange = ({ target: { value } }) => {
-    setInputValue(value);
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
   };
 
   return (
@@ -76,16 +77,13 @@ const getID = () => {
 };
 
 const TodoItem: React.FC<{ item: Todo }> = ({ item }) => {
-  const [todoList, setTodoList] = useRecoilState(todoListState) as [
-    Todo[],
-    any,
-  ];
+  const [todoList, setTodoList] = useRecoilState(todoListState);
   const index = todoList.findIndex(listItem => listItem === item);
 
-  const editItemText = ({ target: { value } }) => {
+  const editItemText = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newList = replaceItemAtIndex(todoList, index, {
       ...item,
-      text: value,
+      text: event.target.value,
     });
 
     setTodoList(newList);
@@ -120,10 +118,14 @@ const TodoItem: React.FC<{ item: Todo }> = ({ item }) => {
   );
 };
 
-const replaceItemAtIndex = (arr, index, newValue) => {
+const replaceItemAtIndex = <T extends any>(
+  arr: T[],
+  index: number,
+  newValue: T,
+) => {
   return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
 };
 
-const deleteItemAtIndex = (arr, index) => {
+const deleteItemAtIndex = <T extends any>(arr: T[], index: number) => {
   return [...arr.slice(0, index), ...arr.slice(index + 1)];
 };
