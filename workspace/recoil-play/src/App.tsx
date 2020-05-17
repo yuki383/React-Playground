@@ -4,6 +4,7 @@ import { filteredTodoListState } from "~/store";
 import { TodoItemCreator } from "./components/TodoItemCreator";
 import { TodoItem } from "./components/TodoItem";
 import { TodoListFilters } from "./components/TodoListFilters";
+import { TodoListStats } from "./components/TodoListStats";
 
 export const App = () => {
   return (
@@ -18,7 +19,7 @@ const TodoList = () => {
 
   return (
     <>
-      {/* <TodoListStats /> */}
+      <TodoListStats />
       <TodoListFilters />
       <TodoItemCreator />
       {todoList.map(todo => (
