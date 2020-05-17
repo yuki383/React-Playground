@@ -29,6 +29,7 @@ module.exports = {
     extensions: [".tsx", ".ts", ".js", ".json"],
     alias: {
       images: path.resolve(__dirname, "public/images"),
+      "~": path.resolve(__dirname, "src"),
     },
   },
   output: {

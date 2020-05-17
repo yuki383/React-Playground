@@ -12,7 +12,8 @@
     "typeRoots": ["src/types", "../../node_modules/@types"],
     "baseUrl": "./",
     "paths": {
-      "images/*": ["public/images/*"]
+      "images/*": ["public/images/*"],
+      "~/*": ["src/*"]
     }
   }
 }
