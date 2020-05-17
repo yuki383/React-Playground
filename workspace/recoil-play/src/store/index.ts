@@ -1,7 +1,13 @@
 import { atom, selector } from "recoil";
 import { Todo } from "~/types";
 
-type Filters = "Show All" | "Show Completed" | "Show Uncompleted";
+export type Filters = "Show All" | "Show Completed" | "Show Uncompleted";
+
+export const isFilter = (obj: any): obj is Filters => {
+  return (
+    obj === "Show All" || obj === "Show Completed" || obj === "Show Uncompleted"
+  );
+};
 
 export const todoListState = atom({
   key: "todoListState",
@@ -13,7 +19,7 @@ export const todoListFilterState = atom({
   default: "Show All" as Filters,
 });
 
-export const filterTodoListState = selector({
+export const filteredTodoListState = selector({
   key: "filteredTodoListState",
   get: ({ get }) => {
     const filter = get(todoListFilterState);

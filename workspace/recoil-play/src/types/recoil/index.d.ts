@@ -31,4 +31,9 @@ declare module "recoil" {
     : never;
 
   export const RecoilRoot: React.FC;
+
+  export const selector: <T1>(arg: {
+    key: string;
+    get: (arg: { get: <T2>(atom: AtomObject<T2>) => T2 }) => T1;
+  }) => AtomObject<T1>;
 }
