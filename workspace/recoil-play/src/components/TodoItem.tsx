@@ -1,7 +1,6 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import { todoListState } from "../store";
-// eslint-disable-next-line no-unused-vars
 import { Todo } from "~/types";
 
 export const TodoItem: React.FC<{ item: Todo }> = ({ item }) => {
