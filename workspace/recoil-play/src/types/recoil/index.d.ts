@@ -1,39 +1,48 @@
 declare module "recoil" {
-  export type AtomOptions<T> = {
-    key: string;
-    default: T;
-  };
-
-  export type AtomObject<T> = {
+  export type Atom<T> = {
     hoge: T;
   };
 
-  type AtomValue<T extends AtomObject<any>> = T extends AtomObject<infer U>
-    ? U
-    : any;
+  type AtomValue<T extends Atom<any>> = T extends Atom<infer U> ? U : any;
+  type GetRecoilState = <A extends Atom<any>>(atom: A) => AtomValue<A>;
+  type SetRecoilState = <A extends Atom<any>>(
+    atom: A,
+  ) => (newValue: Distribute<A>) => void;
+  type ResetRecoilState = <A extends Atom<any>>(atom: A) => () => void;
 
-  export type SetRecoilValue<T> = ((oldValue: T) => T) | T;
-
-  export const atom: <T>(obj: AtomOptions<T>) => AtomObject<T>;
-
-  export const useRecoilValue: <T extends AtomObject<any>>(
-    atom: T,
-  ) => AtomValue<T>;
-
-  export const useSetRecoilState: <T extends AtomObject<any>>(
-    atom: T,
-  ) => (newValue: SetRecoilValue<AtomValue<T>>) => AtomValue<T>;
-
-  export const useRecoilState: <T extends AtomObject<any>>(
-    atom: T,
-  ) => T extends AtomObject<infer U>
-    ? [U, (arg: SetRecoilValue<U>) => U]
+  export type Distribute<T extends Atom<any>> = T extends Atom<infer U>
+    ? ((oldValue: U) => U) | U
     : never;
+
+  export const atom: <T>(obj: { key: string; default: T }) => Atom<T>;
+
+  export const useRecoilValue: GetRecoilState;
+  export const useSetRecoilState: SetRecoilState;
+  export const useRecoilState: <A extends Atom<any>>(
+    atom: A,
+  ) => [AtomValue<A>, (arg: Distribute<A>) => void];
+  export const useResetRecoilState: ResetRecoilState;
 
   export const RecoilRoot: React.FC;
 
-  export const selector: <T1>(arg: {
+  type SetStateWithAtom = <A extends Atom<any>>(
+    atom: A,
+    newState: AtomValue<A>,
+  ) => void;
+
+  type SelectorOptions = {
+    get: GetRecoilState;
+    set: SetStateWithAtom;
+    reset: ResetRecoilState;
+  };
+
+  type SelectorGet<T> = (obj: { get: GetRecoilState }) => T;
+
+  type Opt<T> = {
     key: string;
-    get: (arg: { get: <T2>(atom: AtomObject<T2>) => T2 }) => T1;
-  }) => AtomObject<T1>;
+    get: SelectorGet<T>;
+    set?: (obj: SelectorOptions, newValue: T) => void;
+  };
+
+  export const selector: <T>(arg: Opt<T>) => Atom<T>;
 }
