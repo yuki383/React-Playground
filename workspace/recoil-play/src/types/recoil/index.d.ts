@@ -3,12 +3,14 @@ declare module "recoil" {
     hoge: T;
   };
 
-  type AtomValue<T extends Atom<any>> = T extends Atom<infer U> ? U : any;
-  type GetRecoilState = <A extends Atom<any>>(atom: A) => AtomValue<A>;
-  type SetRecoilState = <A extends Atom<any>>(
+  export type AtomValue<T extends Atom<any>> = T extends Atom<infer U>
+    ? U
+    : any;
+  export type GetRecoilState = <A extends Atom<any>>(atom: A) => AtomValue<A>;
+  export type SetRecoilState = <A extends Atom<any>>(
     atom: A,
   ) => (newValue: Distribute<A>) => void;
-  type ResetRecoilState = <A extends Atom<any>>(atom: A) => () => void;
+  export type ResetRecoilState = <A extends Atom<any>>(atom: A) => () => void;
 
   export type Distribute<T extends Atom<any>> = T extends Atom<infer U>
     ? ((oldValue: U) => U) | U
@@ -25,20 +27,20 @@ declare module "recoil" {
 
   export const RecoilRoot: React.FC;
 
-  type SetStateWithAtom = <A extends Atom<any>>(
+  export type SetStateWithAtom = <A extends Atom<any>>(
     atom: A,
     newState: AtomValue<A>,
   ) => void;
 
-  type SelectorOptions = {
+  export type SelectorOptions = {
     get: GetRecoilState;
     set: SetStateWithAtom;
     reset: ResetRecoilState;
   };
 
-  type SelectorGet<T> = (obj: { get: GetRecoilState }) => T;
+  export type SelectorGet<T> = (obj: { get: GetRecoilState }) => T;
 
-  type Opt<T> = {
+  export type Opt<T> = {
     key: string;
     get: SelectorGet<T>;
     set?: (obj: SelectorOptions, newValue: T) => void;
