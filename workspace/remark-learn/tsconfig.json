@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "es5", 
+    "module": "commonjs",
+    "jsx": "react",
+    "lib": ["es2015", "dom"],
+    "strict": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["src/types", "node_modules/@types"],
+    "baseUrl": "./",
+    "paths": {
+      "images/*": ["public/images/*"],
+    }
+  }
+}
