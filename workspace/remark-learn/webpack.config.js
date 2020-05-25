@@ -8,45 +8,45 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: /node_modules/
+        use: { loader: "ts-loader", options: { transpileOnly: true } },
+        exclude: /node_modules/,
       },
       {
         test: /.(png|jpe?g|gif)$/i,
         loader: "file-loader",
         options: {
-          outputPath: "images"
-        }
-      }
-    ]
+          outputPath: "images",
+        },
+      },
+    ],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".json"],
     alias: {
-      images: path.resolve(__dirname, "public/images")
-    }
+      images: path.resolve(__dirname, "public/images"),
+    },
   },
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "dist"),
   },
   plugins: [
     new HtmlWebPackPlugin({
       title: "Html Plug",
       template: "public/index.html",
-      favicon: "public/favicon.ico"
-    })
+      favicon: "public/favicon.ico",
+    }),
   ],
   optimization: {
     splitChunks: {
       name: "vendor",
-      chunks: "all"
-    }
+      chunks: "all",
+    },
   },
   devtool: "eval-source-map",
   devServer: {
     port: 3000,
     hot: true,
-    liveReload: false
-  }
+    liveReload: false,
+  },
 };
