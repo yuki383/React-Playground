@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es5", 
     "module": "commonjs",
     "jsx": "react",
     "lib": ["es2015", "dom"],
@@ -11,9 +11,8 @@
     "resolveJsonModule": true,
     "typeRoots": ["src/types", "node_modules/@types"],
     "baseUrl": "./",
-    "outDir": "out",
     "paths": {
-      "images/*": ["public/images/*"]
+      "images/*": ["public/images/*"],
     }
   }
 }

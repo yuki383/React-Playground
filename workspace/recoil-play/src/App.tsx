@@ -5,11 +5,13 @@ import { TodoItemCreator } from "./components/TodoItemCreator";
 import { TodoItem } from "./components/TodoItem";
 import { TodoListFilters } from "./components/TodoListFilters";
 import { TodoListStats } from "./components/TodoListStats";
+import { Test } from "./TestRecoil";
 
 export const App = () => {
   return (
     <RecoilRoot>
-      <TodoList />
+      {/* <TodoList /> */}
+      <Test />
     </RecoilRoot>
   );
 };

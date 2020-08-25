@@ -1,8 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
+import ReactMarkdown from "react-markdown";
 
 export const App: React.FC = () => {
-  const [clicked, changeClicked] = useState(false);
-  const label = clicked ? "clicked!" : "click me!";
-
-  return <button onClick={() => changeClicked(prev => !prev)}>{label}</button>;
+  return (
+    <div>
+      <ReactMarkdown source={md} />
+    </div>
+  );
 };
+
+const md = `
+# Post!
+
+It is normal text.
+
+\`\`\`javascript
+console.log("It is Code Highlight");
+\`\`\`
+`;
