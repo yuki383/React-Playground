@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
+import Prism from "prismjs";
+import "prismjs/components/prism-typescript";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-tsx";
 
 export const App: React.FC = () => {
-  const [clicked, changeClicked] = useState(false);
-  const label = clicked ? "clicked!" : "click me!";
+  const html = Prism.highlight(code, Prism.languages.tsx, "tsx");
+  console.log(Prism.languages);
 
   return (
-    <button onClick={() => changeClicked((prev) => !prev)}>{label}</button>
+    <div>
+      Hello!!!
+      <div
+        style={{ backgroundColor: "black" }}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    </div>
   );
 };
+
+const code = `import React from "react";
+export const App: React.FC = () => <div>Hello!</div>;
+`;

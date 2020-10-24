@@ -1,20 +1,23 @@
-import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import { App } from "./App";
+import Prism from "prismjs";
+
+const code = `const fruit = "Banana";
+console.log(\`I love \${fruit}!);
+`;
 
 describe("App", () => {
-  const defaultLabel = "click me!";
-  const clickedLabel = "clicked!";
-  test("default label is 'click me!'", () => {
-    const { getByText } = render(<App />);
-    expect(getByText(defaultLabel)).not.toBeNull();
-  });
+  const env = {
+    code,
+    grammar: Prism.languages.javascript,
+    language: "javascript",
+    tokens: undefined,
+  } as any;
 
-  test("if button click, change label to 'clicked!'", () => {
-    const { getByText } = render(<App />);
-    const target = getByText(defaultLabel);
-    fireEvent.click(target);
-    expect(target).toHaveTextContent(clickedLabel);
+  test("hogefuga", () => {
+    // Prism.hooks.run("before-tokenize", env);
+    env.tokens = Prism.tokenize(env.code, env.grammar);
+    // Prism.hooks.run("after-tokenize", env);
+    expect(
+      Prism.Token.stringify(Prism.util.encode(env.tokens), env.language),
+    ).toBe("hoge");
   });
 });

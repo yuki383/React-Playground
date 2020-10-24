@@ -4,3 +4,4 @@ declare module "*.jpeg";
 declare module "*.gif";
 
 declare module "remark-react";
+declare module "unified-stream";
