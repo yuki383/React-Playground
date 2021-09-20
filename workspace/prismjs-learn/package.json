@@ -12,7 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "prismjs": "^1.21.0",
+    "prismjs": "^1.25.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "typescript": "^3.8.3"
